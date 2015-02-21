@@ -187,6 +187,10 @@ public class QSTileHolder {
                 stringId = R.string.qs_dynamic_tile_adb;
                 break;
 
+            case QSConstants.TILE_REBOOT:
+                resourceName = "ic_qs_reboot";
+                stringId = R.string.qs_tile_reboot;
+                break;
             default:
                 return null;
         }
