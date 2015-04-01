@@ -87,8 +87,6 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
     private static final String KEY_SAFETY_LEGAL = "safetylegal";
     private static final String KEY_MOD_VERSION = "mod_version";
     private static final String KEY_MOD_BUILD_DATE = "build_date";
-    private static final String KEY_CM_UPDATES = "cm_updates";
-    private static final String KEY_CM_LICENSE = "cmlicense";
 
     static final int TAPS_TO_BE_A_DEVELOPER = 7;
 
@@ -134,11 +132,19 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
         removePreferenceIfPropertyMissing(getPreferenceScreen(), KEY_SELINUX_STATUS,
                 PROPERTY_SELINUX_STATUS);
 
-        // Only the owner should see the Updater settings, if it exists
-        if (UserHandle.myUserId() == UserHandle.USER_OWNER) {
-            removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));
+        String cpuInfo = getCPUInfo();
+        String memInfo = getMemInfo();
+
+        if (cpuInfo != null) {
+            setStringSummary(KEY_DEVICE_CPU, cpuInfo);
         } else {
-            getPreferenceScreen().removePreference(findPreference(KEY_CM_UPDATES));
+            getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_CPU));
+        }
+
+        if (memInfo != null) {
+            setStringSummary(KEY_DEVICE_MEMORY, memInfo);
+        } else {
+            getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_MEMORY));
         }
 
         // Remove Safety information preference if PROPERTY_URL_SAFETYLEGAL is not set
