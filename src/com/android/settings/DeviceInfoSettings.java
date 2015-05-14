@@ -153,7 +153,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
 
         // Only the owner should see the Updater settings, if it exists
         if (UserHandle.myUserId() == UserHandle.USER_OWNER) {
-            removePreferenceIfPackageNotInstalled(findPreference(KEY_CM_UPDATES));
+
         } else {
             getPreferenceScreen().removePreference(findPreference(KEY_DEVICE_CPU));
         }
@@ -298,7 +298,8 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
                     Log.e(LOG_TAG, "Unable to start activity " + intent.toString());
                 }
             }
-        } else if (preference.getKey().equals(KEY_CM_LICENSE)) {
+        }
+/* else if (preference.getKey().equals(KEY_CM_LICENSE)) {
             String userCMLicenseUrl = SystemProperties.get(PROPERTY_CMLICENSE_URL);
             final Intent intent = new Intent(Intent.ACTION_VIEW);
             intent.addCategory(Intent.CATEGORY_DEFAULT);
@@ -308,7 +309,7 @@ public class DeviceInfoSettings extends SettingsPreferenceFragment implements In
             } catch (Exception e) {
                 Log.e(LOG_TAG, "Unable to start activity " + intent.toString());
             }
-        }
+        } */
         return super.onPreferenceTreeClick(preferenceScreen, preference);
     }
 
