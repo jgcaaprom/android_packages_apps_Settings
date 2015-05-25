@@ -23,6 +23,7 @@ import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.SwitchPreference;
 import android.provider.SearchIndexableResource;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
@@ -51,6 +52,7 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private static final String STATUS_BAR_AM_PM = "status_bar_am_pm";
     private static final String STATUS_BAR_BATTERY_STYLE = "status_bar_battery_style";
     private static final String STATUS_BAR_SHOW_BATTERY_PERCENT = "status_bar_show_battery_percent";
+    private static final String PREF_ENABLE_TASK_MANAGER = "enable_task_manager";
 
     private static final int STATUS_BAR_BATTERY_STYLE_HIDDEN = 4;
     private static final int STATUS_BAR_BATTERY_STYLE_TEXT = 6;
@@ -59,6 +61,8 @@ public class StatusBarSettings extends SettingsPreferenceFragment
     private ListPreference mStatusBarAmPm;
     private ListPreference mStatusBarBattery;
     private ListPreference mStatusBarBatteryShowPercent;
+
+    private SwitchPreference mEnableTaskManager;
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -102,6 +106,54 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         mStatusBarBatteryShowPercent.setSummary(mStatusBarBatteryShowPercent.getEntry());
         enableStatusBarBatteryDependents(batteryStyle);
         mStatusBarBatteryShowPercent.setOnPreferenceChangeListener(this);
+<<<<<<< HEAD
+=======
+
+        mColorPicker = (ColorPickerPreference) findPreference(PREF_COLOR_PICKER);
+        mColorPicker.setOnPreferenceChangeListener(this);
+        int intColor = Settings.System.getInt(getActivity().getContentResolver(),
+                    Settings.System.STATUSBAR_CLOCK_COLOR, -2);
+        if (intColor == -2) {
+            intColor = systemUiResources.getColor(systemUiResources.getIdentifier(
+                    "com.android.systemui:color/status_bar_clock_color", null, null));
+            mColorPicker.setSummary(getResources().getString(R.string.default_string));
+        } else {
+            String hexColor = String.format("#%08x", (0xffffffff & intColor));
+            mColorPicker.setSummary(hexColor);
+        }
+        mColorPicker.setNewPreviewColor(intColor);
+
+        mFontStyle = (ListPreference) findPreference(PREF_FONT_STYLE);
+        mFontStyle.setOnPreferenceChangeListener(this);
+        mFontStyle.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUSBAR_CLOCK_FONT_STYLE,
+                0)));
+        mFontStyle.setSummary(mFontStyle.getEntry());
+
+        mStatusBarClockFontSize = (ListPreference) findPreference(PREF_STATUS_BAR_CLOCK_FONT_SIZE);
+        mStatusBarClockFontSize.setOnPreferenceChangeListener(this);
+        mStatusBarClockFontSize.setValue(Integer.toString(Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUSBAR_CLOCK_FONT_SIZE, 
+                14)));
+        mStatusBarClockFontSize.setSummary(mStatusBarClockFontSize.getEntry());
+
+        // Status bar custom header default
+        mCustomHeaderDefault = (ListPreference) findPreference(PREF_CUSTOM_HEADER_DEFAULT);
+        mCustomHeaderDefault.setOnPreferenceChangeListener(this);
+        int customHeaderDefault = Settings.System.getInt(getActivity()
+                .getContentResolver(), Settings.System.STATUS_BAR_CUSTOM_HEADER_DEFAULT, 0);
+        mCustomHeaderDefault.setValue(String.valueOf(customHeaderDefault));
+        mCustomHeaderDefault.setSummary(mCustomHeaderDefault.getEntry());
+
+        // Task manager
+        mEnableTaskManager = (SwitchPreference) prefSet.findPreference(PREF_ENABLE_TASK_MANAGER);
+        mEnableTaskManager.setChecked((Settings.System.getInt(getActivity().getContentResolver(),
+                Settings.System.ENABLE_TASK_MANAGER, 0) == 1));
+
+        setHasOptionsMenu(true);
+        mCheckPreferences = true;
+        return prefSet;
+>>>>>>> 68c126d... CAF Task Manager switch [2/2]
     }
 
     @Override
@@ -159,6 +211,37 @@ public class StatusBarSettings extends SettingsPreferenceFragment
         return false;
     }
 
+<<<<<<< HEAD
+=======
+    @Override
+    public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+       if  (preference == mEnableTaskManager) {
+            boolean enabled = ((SwitchPreference)preference).isChecked();
+            Settings.System.putInt(getActivity().getContentResolver(),
+                    Settings.System.ENABLE_TASK_MANAGER, enabled ? 1:0);
+        }
+        return super.onPreferenceTreeClick(preferenceScreen, preference);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.add(0, MENU_RESET, 0, R.string.reset)
+                .setIcon(R.drawable.ic_settings_reset)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_RESET:
+                showDialogInner(DLG_RESET);
+                return true;
+             default:
+                return super.onContextItemSelected(item);
+        }
+    }
+
+>>>>>>> 68c126d... CAF Task Manager switch [2/2]
     private void enableStatusBarBatteryDependents(int batteryIconStyle) {
         if (batteryIconStyle == STATUS_BAR_BATTERY_STYLE_HIDDEN ||
                 batteryIconStyle == STATUS_BAR_BATTERY_STYLE_TEXT) {
