@@ -27,6 +27,9 @@
 
     <!-- Launch Dev Tools -->
     <string name="development_tools_title">Development tools</string>
+    
+    <!-- SuperSU -->
+    <string name="supersu_title">SuperSU</string>
 
     <!-- Setting checkbox title for root access -->
     <string name="root_access">Root access</string>
