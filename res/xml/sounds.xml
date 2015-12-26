@@ -135,8 +135,6 @@
                     android:value="com.android.settings.Settings$NotificationAppListActivity" />
         </PreferenceScreen>
 
-    </PreferenceCategory>
-
         <!-- Also vibrate for calls -->
         <SwitchPreference
                 android:key="vibrate_when_ringing"
