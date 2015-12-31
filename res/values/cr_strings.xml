@@ -17,4 +17,9 @@
     <string name="changelog_temasek_title">Changelog</string>
     <string name="changelog_temasek_error">Unable to load changelog</string>
 
+
+    <!-- Force expanded notifications -->
+    <string name="force_expanded_notifications_title">Force Expanded Notifications</string>
+    <string name="force_expanded_notifications_summary">Available only for apps that support expanded notifications</string>
+
 </resources>
