@@ -89,6 +89,13 @@
                 android:title="@string/other_sound_settings"
                 android:persistent="false"
                 android:fragment="com.android.settings.notification.OtherSoundSettings" />
+
+        <!-- Expanded Notification -->
+        <com.android.settings.cyanogenmod.SystemSettingSwitchPreference
+                android:key="force_expanded_notifications"
+                android:title="@string/force_expanded_notifications_title"
+                android:summary="@string/force_expanded_notifications_summary" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
