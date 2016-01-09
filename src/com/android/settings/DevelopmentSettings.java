@@ -473,9 +473,7 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
 
         mRootAccess = (ListPreference) findPreference(ROOT_ACCESS_KEY);
         mRootAccess.setOnPreferenceChangeListener(this);
-        if (!removeRootOptionsIfRequired()) {
             mAllPrefs.add(mRootAccess);
-        }
 
         mDevelopmentTools = (PreferenceScreen) findPreference(DEVELOPMENT_TOOLS);
         if (Utils.updatePreferenceToSpecificActivityOrRemove(getActivity(),
@@ -530,6 +528,12 @@ public class DevelopmentSettings extends SettingsPreferenceFragment
         mAllPrefs.add(pref);
         mResetSwitchPrefs.add(pref);
         return pref;
+    }
+
+    private boolean removeRootOptionsIfRequired() {
+        // Any build type always get root, and eng always gets root
+                getPreferenceScreen().removePreference(mRootAccess);
+                return false;
     }
 
     @Override
