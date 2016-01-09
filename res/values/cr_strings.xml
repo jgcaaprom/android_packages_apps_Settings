@@ -5,9 +5,6 @@
     <!-- General Settings -->
     <string name="statusbar_notifications_title">Notifications</string>
 
-    <!-- SuperSU -->
-    <string name="supersu_title">SuperSU</string>
-
     <!-- Disabling FC notifications -->
     <string name="disable_fc_notifications_title">Disable FC Notifications</string>
     <string name="disable_fc_notifications_summary">This will hide all force close notificaitons</string>
