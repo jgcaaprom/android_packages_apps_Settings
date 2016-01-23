@@ -36,6 +36,7 @@
             android:summary="@string/anonymous_statistics_summary"
             android:fragment="com.android.settings.cmstats.AnonymousStats" >
         </PreferenceScreen>
+
             android:title="@string/block_notifications_title"
             android:summary="@string/block_notifications_summary"
             android:fragment="com.android.settings.cyanogenmod.SpamList" />
@@ -46,4 +47,14 @@
         android:summary="@string/disable_fc_notifications_summary"
         android:defaultValue="false" />
 
+        <!-- Protected Apps! -->
+        <Preference
+            android:key="protected_apps_manager"
+            android:title="@string/protected_apps"
+            android:summary="@string/protected_apps_summary">
+                <intent
+                    android:action="android.intent.action.VIEW"
+                    android:targetPackage="com.android.settings"
+                    android:targetClass="com.android.settings.applications.ProtectedAppsActivity" />
+        </Preference>
 </PreferenceScreen>
